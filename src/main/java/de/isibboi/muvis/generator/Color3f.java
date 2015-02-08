@@ -33,6 +33,38 @@ public class Color3f {
 			b = 255;
 		}
 
-		return 0xFF000000 | ((((int) r) << 16) & 0xFF0000) | ((((int) g) << 8) & 0xFF00) | ((((int) b) << 0) & 0xFF);
+		int rgb = 0xFF000000 | ((((int) r) << 16) & 0xFF0000) | ((((int) g) << 8) & 0xFF00) | ((((int) b) << 0) & 0xFF);
+
+		return rgb;
+	}
+
+	public boolean isBlack() {
+		return r == 0 && g == 0 && b == 0;
+	}
+
+	public String toString() {
+		return getClass().getSimpleName() + "(" + r + ", " + g + ", " + b + ")";
+	}
+
+	public Color3f multiply(float factor) {
+		r *= factor;
+		g *= factor;
+		b *= factor;
+		
+		return this;
+	}
+	
+	public Color3f add(Color3f other) {
+		r += other.r;
+		g += other.g;
+		b += other.b;
+		
+		return this;
+	}
+
+	public void setBlack() {
+		r = 0;
+		g = 0;
+		b = 0;
 	}
 }

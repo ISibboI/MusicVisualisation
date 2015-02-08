@@ -6,8 +6,10 @@ public abstract class FloatBufferedVideoGenerator implements VideoGenerator {
 	private FloatImage image;
 	private int[] rgb = new int[0];
 	
+	private final SinTable sin = new SinTable(1 << 13);
+	
 	@Override
-	public void generateFrame(BufferedImage buffer, double beat) {
+	public BufferedImage generateFrame(BufferedImage buffer, double beat) {
 		if (image == null) {
 			image = new FloatImage(buffer.getWidth(), buffer.getHeight());
 		}
@@ -16,16 +18,17 @@ public abstract class FloatBufferedVideoGenerator implements VideoGenerator {
 			resizeTo(buffer.getWidth(), buffer.getHeight());
 		}
 		
-		generateFrame(image, beat);
+		image = generateFrame(image, beat);
 
 		drawImageTo(buffer);
+		return buffer;
 	}
 	
-	protected abstract void generateFrame(FloatImage image, double beat);
+	protected abstract FloatImage generateFrame(FloatImage image, double beat);
 
 	private void drawImageTo(BufferedImage buffer) {
 		rgb = image.toRGBBuffer(rgb);
-		buffer.setRGB(0, 0, buffer.getWidth(), buffer.getHeight(), rgb, 0, 1);
+		buffer.setRGB(0, 0, buffer.getWidth(), buffer.getHeight(), rgb, 0, buffer.getWidth());
 	}
 
 	private void resizeTo(int newWidth, int newHeight) {
@@ -41,5 +44,9 @@ public abstract class FloatBufferedVideoGenerator implements VideoGenerator {
 		}
 
 		image = newImage;
+	}
+	
+	protected SinTable getSinTable() {
+		return sin;
 	}
 }

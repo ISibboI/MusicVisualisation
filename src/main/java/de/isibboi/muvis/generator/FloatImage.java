@@ -11,6 +11,10 @@ public class FloatImage {
 		this.height = height;
 	}
 
+	public FloatImage(FloatImage image) {
+		this(image.getWidth(), image.getHeight());
+	}
+
 	public float getValue(int x, int y, int c) {
 		return pixels[3 * (x + y * width) + c];
 	}
@@ -98,6 +102,55 @@ public class FloatImage {
 
 		default:
 			throw new RuntimeException("Unknown WrapMode: " + wrap);
+		}
+	}
+
+	public void setPixel(int x, int y, Color3f color, MissMode miss) {
+		switch (miss) {
+		case DROP:
+			if (x >= 0 && y >= 0 && x < width && y < height) {
+				setPixel(x, y, color);
+			}
+
+			break;
+
+		case MOVE_INSIDE:
+			if (x < 0) {
+				x = 0;
+			}
+
+			if (y < 0) {
+				y = 0;
+			}
+
+			if (x >= width) {
+				x = width - 1;
+			}
+
+			if (y >= height) {
+				y = height - 1;
+			}
+
+			setPixel(x, y, color);
+			break;
+
+		case REPEAT:
+			x %= width;
+			y %= height;
+
+			if (x < 0) {
+				x += width;
+			}
+
+			if (y < 0) {
+				y += height;
+			}
+
+			setPixel(x, y, color);
+			break;
+
+		default:
+			throw new RuntimeException("Unknown MissMode: " + miss);
 		}
 	}
 }

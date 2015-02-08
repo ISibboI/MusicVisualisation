@@ -68,7 +68,7 @@ public class VideoFrame extends JFrame implements Runnable {
 			}
 			
 			if (generator != null) {
-				generator.generateFrame(image, beat);
+				image = generator.generateFrame(image, beat);
 			} else {
 				makeBlack();
 			}

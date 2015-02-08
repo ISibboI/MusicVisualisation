@@ -10,11 +10,11 @@ public class LinesVideoGenerator extends AbstractVideoGenerator {
 	private boolean once = true;
 	
 	@Override
-	public void generateFrame(BufferedImage buffer, double beat) {
+	public BufferedImage generateFrame(BufferedImage buffer, double beat) {
 		if (once) {
 			lastBeat = beat;
 			once = false;
-			return;
+			return buffer;
 		}
 		
 		simpleFade(buffer, (byte) 1);
@@ -30,5 +30,6 @@ public class LinesVideoGenerator extends AbstractVideoGenerator {
 		}
 		
 		lastBeat = beat;
+		return buffer;
 	}
 }

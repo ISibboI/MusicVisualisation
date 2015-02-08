@@ -3,13 +3,15 @@ package de.isibboi.muvis.generator;
 public abstract class VideoEffect {
 	private boolean enabled = true;
 	
-	public void applyEffect(FloatImage image, double beat, double lastBeat) {
+	public FloatImage applyEffect(FloatImage image, double beat, double lastBeat) {
 		if (enabled) {
-			applyEffectInternal(image, beat, lastBeat);
+			return applyEffectInternal(image, beat, lastBeat);
+		} else {
+			return image;
 		}
 	}
 
-	protected abstract void applyEffectInternal(FloatImage image, double beat, double lastBeat);
+	protected abstract FloatImage applyEffectInternal(FloatImage image, double beat, double lastBeat);
 
 	public boolean isEnabled() {
 		return enabled;

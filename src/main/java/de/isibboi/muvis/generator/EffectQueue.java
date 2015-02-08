@@ -10,9 +10,11 @@ public class EffectQueue {
 		return effects.add(effect);
 	}
 	
-	public void applyEffectQueue(FloatImage image, double beat, double lastBeat) {
+	public FloatImage applyEffectQueue(FloatImage image, double beat, double lastBeat) {
 		for (VideoEffect effect : effects) {
-			effect.applyEffect(image, beat, lastBeat);
+			image = effect.applyEffect(image, beat, lastBeat);
 		}
+		
+		return image;
 	}
 }
