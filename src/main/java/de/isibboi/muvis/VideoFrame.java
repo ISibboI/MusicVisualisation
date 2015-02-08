@@ -13,6 +13,8 @@ import java.util.Hashtable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import de.isibboi.muvis.generator.VideoGenerator;
+
 @SuppressWarnings("serial")
 public class VideoFrame extends JFrame implements Runnable {
 	private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_ARGB;

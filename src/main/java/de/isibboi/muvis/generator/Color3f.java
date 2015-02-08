@@ -1,4 +1,4 @@
-package de.isibboi.muvis;
+package de.isibboi.muvis.generator;
 
 public class Color3f {
 	public float r;

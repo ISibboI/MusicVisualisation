@@ -1,4 +1,4 @@
-package de.isibboi.muvis;
+package de.isibboi.muvis.generator;
 
 import java.awt.image.BufferedImage;
 
